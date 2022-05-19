@@ -1,0 +1,190 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/aluraDecodificador/mobile.css" type="text/css">
+    <title>Text Decoder</title>
+
+</head>
+<body>
+    <main id="main">
+
+    <div id="deskv">
+
+        <header>
+            <p id="letraEnc">a</p>
+        </header>
+
+        <div id="inputDiv">
+            <input type="text" placeholder="Ingrese el texto aqui" id="ingreseTexto">
+        
+            <p id="advertencia"><b id="icono">!</b> Solo letras minúsculas y sin acentos</p>
+        </div>
+
+        <div id="buttons">
+
+            <button id="scriptBtn" class="btns">
+                Encriptar
+            </button>
+
+            <button id="unscriptBtn" class="btns">
+                Desencriptar
+            </button>
+
+        </div>
+    
+    </div>
+
+    <div id="pantalla">
+        <div id="fondo">
+
+            <img src="/aluraDecodificador/imagen.png" alt="" id="imgPantalla">
+
+            <p id="pp1">Ningún mensaje  fue encontrado</p>
+            <p id="pp2">Ingresa el texto que desees encriptar o desencriptar</p>
+    
+        </div>
+        <button id="copyBtn" class="btns">Copiar</button>
+    </div>    
+    </main>
+    
+
+    
+    
+    
+    <script>
+        //parte de codificado y obtencion de texto
+
+        function checkStr(texto){
+            for(var i = 0; i < texto.length; i++){
+                if (texto[i] == " "){
+                    array.push(" ");
+                }
+                if(texto[i] == "a"){
+                    array.push("ai");
+                    continue;
+                }
+                if(texto[i] == "e"){
+                    array.push("enter");
+                    continue;
+                }
+                if(texto[i] == "i"){
+                    array.push("imes");
+                    continue;
+                }
+                if(texto[i] == "o"){
+                    array.push("ober");
+                    continue;
+                }
+                if(texto[i] == "u"){
+                    array.push("ufat");
+                    continue;
+                } 
+
+                else {
+                    array.push(texto[i]);
+                 }
+            }  
+            textoEncriptado = array.join("");
+        }
+
+        function codificar(){  
+            document.getElementById("fondo").innerHTML = " ";
+            array = [];
+            
+            var textoIngresado = document.getElementById("ingreseTexto");
+            var texto = textoIngresado.value; 
+            
+            checkStr(texto);
+            document.getElementById("fondo").innerHTML = textoEncriptado;
+            
+            document.getElementById("copyBtn").style.display = "inline";
+           
+        }
+        var array = [];
+        
+        var textoEncriptado = "";
+        
+        
+        var button1 = document.getElementById("scriptBtn");
+        button1.onclick = codificar;
+        
+        //parte de decodificado
+
+        //Funcion general
+
+        function checkStr2(texto){
+        for(var i = 0; i < texto.length; i++){
+        if (texto[i] == " "){
+            nuevoArray.push(" ");
+            continue;
+        }
+        
+        if(texto[i] == "a" && texto[i+1] == "i"){
+            nuevoArray.push("a");
+            i++;
+            continue;
+        }
+        if(texto[i] == "e" && texto[i+1] == "n" && texto[i+2] == "t" && texto[i+3] == "e" && texto[i+4] == "r"){
+            nuevoArray.push("e");
+            i += 4;
+            continue;
+        }
+        if(texto[i] == "i" && texto[i+1] == "m" && texto[i+2] == "e" && texto[i+3] == "s"){
+            nuevoArray.push("i");
+            i += 3;
+            continue;
+        }
+        if(texto[i] == "o" && texto[i+1] == "b" && texto[i+2] == "e" && texto[i+3] == "r"){
+            nuevoArray.push("o");
+            i += 3;
+            continue;
+        }
+        if(texto[i] == "u" && texto[i+1] == "f" && texto[i+2] == "a" && texto[i+3] == "t"){
+             nuevoArray.push("u");
+            i += 3;
+        } else {
+            nuevoArray.push(texto[i]);
+        }
+    }
+     textoEncriptado = nuevoArray.join("");
+    
+}
+        
+        function decodificar(){  
+            document.getElementById("fondo").innerHTML = " ";
+            nuevoArray = [];
+
+            var textoIngresado = document.getElementById("ingreseTexto");
+            var texto = textoIngresado.value; 
+
+            checkStr2(texto);
+            document.getElementById("fondo").innerHTML = textoEncriptado;
+        }
+
+        var nuevoArray = [];
+                
+        var textoEncriptado = "";
+                
+                
+        var button2 = document.getElementById("unscriptBtn");
+        button2.onclick = decodificar;
+
+        //copy button
+
+        var copyButton = document.getElementById("copyBtn");
+        copyButton.addEventListener("click", function(){
+
+            var copiado = document.getElementById("fondo");
+            copiado.value.execCommand("copy");
+        
+        });
+
+    
+    </script>  
+
+    
+    
+    
+</body>
+</html>
